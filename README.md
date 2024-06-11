@@ -70,3 +70,27 @@ gestor
       "args": ["--web-hostname=localhost", "--web-port=3000"]
       // "preLaunchTask": "clear chrome cache"
     } -->
+
+# in development
+
+- Autenticación
+   - [x] inicio y registro
+   - [x] cierre de sesión
+
+- Gestion de Usuarios
+   - [x] Asignar roles
+     - [ ] Admin
+     - [ ] trabajador
+     - [ ] cliente
+     - [ ] proveedor
+   - [ ] Permisos
+     - [ ] acciones que puede hacer dentro de la app
+   - [ ] desactivar cuenta 
+   
+
+
+
+
+
+
+

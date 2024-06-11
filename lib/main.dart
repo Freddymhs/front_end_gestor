@@ -1,13 +1,10 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:front_end_gestor/src/app.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 // import 'src/app.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
+import 'components/atoms/settings/settings_controller.dart';
+import 'components/atoms/settings/settings_service.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -29,102 +26,102 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  // runApp(MyApp(settingsController: settingsController));
+  runApp(MyApp(settingsController: settingsController));
   // test supabase client with google sign in
-  runApp(const MainApp());
+  // runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+// class MainApp extends StatelessWidget {
+//   const MainApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       home: HomePage(),
+//     );
+//   }
+// }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+// class HomePage extends StatefulWidget {
+//   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+//   @override
+//   State<HomePage> createState() => _HomePageState();
+// }
 
-class _HomePageState extends State<HomePage> {
-  String? _userId;
+// class _HomePageState extends State<HomePage> {
+//   String? _userId;
 
-  @override
-  void initState() {
-    super.initState();
-    supabase.auth.onAuthStateChange.listen((data) {
-      setState(() {
-        _userId = data.session?.user?.id;
-      });
-    });
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     supabase.auth.onAuthStateChange.listen((data) {
+//       setState(() {
+//         _userId = data.session?.user?.id;
+//       });
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login Page'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-            onPressed: () async {
-              if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-                await googleSignIn();
-              } else {
-                webGoogleSignIn();
-              }
-            },
-            child: Text('Holsa-> ${_userId}')),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Login Page'),
+//       ),
+//       body: Center(
+//         child: ElevatedButton(
+//             onPressed: () async {
+//               if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+//                 await googleSignIn();
+//               } else {
+//                 webGoogleSignIn();
+//               }
+//             },
+//             child: Text('Holsa-> ${_userId}')),
+//       ),
+//     );
+//   }
+// }
 
-Future<void> webGoogleSignIn() async {
-  supabase.auth.signInWithOAuth(OAuthProvider.google);
-}
+// Future<void> webGoogleSignIn() async {
+//   supabase.auth.signInWithOAuth(OAuthProvider.google);
+// }
 
-Future<AuthResponse> googleSignIn() async {
-  /// TODO: update the Web client ID with your own.
-  ///
-  /// Web Client ID that you registered with Google Cloud.
-  const webClientId =
-      '49813008970-1esk19a5uajf759fm3qvbaci7emnv7l9.apps.googleusercontent.com';
+// Future<AuthResponse> googleSignIn() async {
+//   /// TODO: update the Web client ID with your own.
+//   ///
+//   /// Web Client ID that you registered with Google Cloud.
+//   const webClientId =
+//       '49813008970-1esk19a5uajf759fm3qvbaci7emnv7l9.apps.googleusercontent.com';
 
-  /// TODO: update the iOS client ID with your own.
-  ///
-  /// iOS Client ID that you registered with Google Cloud.
-  const iosClientId =
-      '49813008970-ebmf6qv6pd4m9m86f151ad4gmahi0a55.apps.googleusercontent.com';
+//   /// TODO: update the iOS client ID with your own.
+//   ///
+//   /// iOS Client ID that you registered with Google Cloud.
+//   const iosClientId =
+//       '49813008970-ebmf6qv6pd4m9m86f151ad4gmahi0a55.apps.googleusercontent.com';
 
-  // Google sign in on Android will work without providing the Android
-  // Client ID registered on Google Cloud.
+//   // Google sign in on Android will work without providing the Android
+//   // Client ID registered on Google Cloud.
 
-  final GoogleSignIn googleSignIn = GoogleSignIn(
-    clientId: iosClientId,
-    serverClientId: webClientId,
-  );
-  final googleUser = await googleSignIn.signIn();
-  final googleAuth = await googleUser!.authentication;
-  final accessToken = googleAuth.accessToken;
-  final idToken = googleAuth.idToken;
+//   final GoogleSignIn googleSignIn = GoogleSignIn(
+//     clientId: iosClientId,
+//     serverClientId: webClientId,
+//   );
+//   final googleUser = await googleSignIn.signIn();
+//   final googleAuth = await googleUser!.authentication;
+//   final accessToken = googleAuth.accessToken;
+//   final idToken = googleAuth.idToken;
 
-  if (accessToken == null) {
-    throw 'No Access Token found.';
-  }
-  if (idToken == null) {
-    throw 'No ID Token found.';
-  }
+//   if (accessToken == null) {
+//     throw 'No Access Token found.';
+//   }
+//   if (idToken == null) {
+//     throw 'No ID Token found.';
+//   }
 
-  return supabase.auth.signInWithIdToken(
-    provider: OAuthProvider.google,
-    idToken: idToken,
-    accessToken: accessToken,
-  );
-}
+//   return supabase.auth.signInWithIdToken(
+//     provider: OAuthProvider.google,
+//     idToken: idToken,
+//     accessToken: accessToken,
+//   );
+// }
