@@ -1,0 +1,6 @@
+{
+  "appTitle": "front_end_gestor",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
