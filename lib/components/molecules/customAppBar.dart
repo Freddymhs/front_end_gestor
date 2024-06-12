@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:front_end_gestor/Util/Constants.dart';
 import 'package:front_end_gestor/Util/SizingInfo.dart';
+import 'package:front_end_gestor/main.dart';
 import 'package:front_end_gestor/supabase.dart';
+import 'package:provider/provider.dart';
 
 class MyCustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MyCustomAppBar({super.key});
@@ -17,18 +19,26 @@ class MyCustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _MyCustomAppBarState extends State<MyCustomAppBar> {
   @override
   Widget build(BuildContext context) {
+    final userData = Provider.of<UserData>(context);
+
     return AppBar(
       leading: ModalRoute.of(context)?.canPop == true
-          ? BackButton()
+          ? const BackButton()
           : IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
             ),
       actions: <Widget>[
-        _buildTextButton(context, 'User Name', 'Welcome', isMobile(context)),
-        _buildTextButton(context, 'Role', 'its your role', false),
+        _buildTextButton(
+          context,
+          userData.fullName ?? userNameLabel,
+          'Welcome',
+          isMobile(context),
+        ),
+        _buildTextButton(
+            context, userData.role ?? userRoleLabel, 'its your role', false),
         _buildIconButton(context),
         _buildPopupMenuButton(context),
       ],
@@ -42,11 +52,12 @@ Widget _buildTextButton(
   String message,
   bool hide,
 ) {
-  if (hide == true) return const SizedBox.shrink();
+  if (hide) return const SizedBox.shrink();
   return TextButton(
     onPressed: () {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(message))); // Call the function to get the message
+        content: Text(message),
+      ));
     },
     child: Text(label),
   );
@@ -68,12 +79,8 @@ Widget _buildPopupMenuButton(BuildContext context) {
     tooltip: showOptions,
     onSelected: (value) {
       if (value == 0) {
-        Navigator.pushNamed(
-          context,
-          settingsRoute,
-        );
-      }
-      if (value == 1) {
+        Navigator.pushNamed(context, settingsRoute);
+      } else if (value == 1) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text(goodByeMessage)));
         signOutGoogle();
@@ -81,7 +88,7 @@ Widget _buildPopupMenuButton(BuildContext context) {
     },
     itemBuilder: (context) => [
       const PopupMenuItem<int>(value: 0, child: Text(configurations)),
-      const PopupMenuItem<int>(value: 1, child: Text(signOut)),
+      const PopupMenuItem<int>(value: 1, child: Text(signOutLabel)),
     ],
   );
 }

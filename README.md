@@ -63,12 +63,3 @@ gestor
 
 ```
 
-<!-- {
-      "name": "launch_chrome",
-      "request": "launch",
-      "type": "dart",
-      "deviceId": "chrome",
-      "program": "lib/main.dart",
-      "args": ["--web-hostname=localhost", "--web-port=3000"],
-      "preLaunchTask": "clear chrome cache"
-    } -->

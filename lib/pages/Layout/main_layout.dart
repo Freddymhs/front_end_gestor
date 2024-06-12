@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:front_end_gestor/Util/Constants.dart';
 import 'package:front_end_gestor/Util/SizingInfo.dart';
 import 'package:front_end_gestor/components/molecules/customAppBar.dart';
 import 'package:front_end_gestor/components/molecules/customFooter.dart';
 import 'package:front_end_gestor/components/molecules/customNavigationBar.dart';
+import 'package:front_end_gestor/main.dart';
+import 'package:front_end_gestor/pages/company_view.dart';
+import 'package:provider/provider.dart';
 
 class BaseLayout extends StatefulWidget {
   final Widget child;
@@ -20,35 +24,38 @@ class _BaseLayoutState extends State<BaseLayout> {
 
   @override
   Widget build(BuildContext context) {
+    final userData = Provider.of<UserData>(context);
+    print('help ${userData.companyName}');
     return Scaffold(
       appBar: const MyCustomAppBar(),
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
-            ),
+            DrawerHeader(
+                // decoration: BoxDecoration(
+                //   color: Colors.blue,
+                // ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        '../../../assets/images/logo.png'), // Ruta a tu imagen
+                  ),
+                ),
+                child: Text('${userData.companyName ?? "Company Name"}')),
             ListTile(
-              title: const Text('Item 1'),
+              title: const Text(panelManagementUsers),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CompanyView(),
+                  ),
+                );
               },
             ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
+            const ListTile(
+              title: const Text('Scanner || Venta'),
             ),
           ],
         ),
