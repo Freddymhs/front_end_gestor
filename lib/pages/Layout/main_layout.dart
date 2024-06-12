@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:front_end_gestor/Util/Constants.dart';
 import 'package:front_end_gestor/Util/SizingInfo.dart';
 import 'package:front_end_gestor/components/molecules/customAppBar.dart';
 import 'package:front_end_gestor/components/molecules/customFooter.dart';
 import 'package:front_end_gestor/components/molecules/customNavigationBar.dart';
+import 'package:front_end_gestor/pages/company_view.dart';
 
 class BaseLayout extends StatefulWidget {
   final Widget child;
@@ -37,17 +39,19 @@ class _BaseLayoutState extends State<BaseLayout> {
               child: Text('Drawer Header'),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              title: const Text(panelManagementUsers),
               onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
+                // Navigator.pushNamed(
+                //   context,
+                //   companyRoute,
+                // );
+                // Navigator.pushNamed(context, companyRoute);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CompanyView(),
+                  ),
+                );
               },
             ),
           ],

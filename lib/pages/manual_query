@@ -1,0 +1,110 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:front_end_gestor/Util/Constants.dart';
+import 'package:front_end_gestor/supabase.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
+String YOUR_QUERY = """
+     query create{
+  users {
+    email
+    name
+  }
+}
+
+""";
+
+class LoginView extends StatefulWidget {
+  static const routeName = loginRoute;
+  const LoginView({Key? key}) : super(key: key);
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  List<dynamic> users = [];
+  bool isLoading = false;
+  Future<void> _signInWithGoogle() async {
+    try {
+      if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+        await googleSignInNative();
+      } else {
+        await webGoogleSignIn();
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error signing in: $e')),
+      );
+    }
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    final client = GraphQLProvider.of(context)
+        ?.value; // Obtener el cliente GraphQL del contexto
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(loginPageTitle),
+      ),
+      body: Column(
+        children: [
+          if (isLoading)
+            CircularProgressIndicator() // Muestra un indicador de carga si se está realizando la consulta
+          else
+            Expanded(
+              child: ListView.builder(
+                itemCount: users.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final user = users[index];
+                  return ListTile(
+                    title: Text(user['name']),
+                    subtitle: Text(user['email']),
+                  );
+                },
+              ),
+            ),
+          ElevatedButton.icon(
+            icon: Image.asset(
+              'assets/images/google.png',
+              width: 28,
+            ),
+            onPressed: _signInWithGoogle,
+            label: const Text(signInWithGoogle),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Al presionar el botón, se realiza la consulta utilizando el cliente GraphQL obtenido del contexto
+              fetchData(client!);
+            },
+            child: Text('Obtener Usuarios'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void fetchData(GraphQLClient client) async {
+    setState(() {
+      isLoading =
+          true; // Establece isLoading en true para mostrar el indicador de carga
+    });
+    try {
+      final result =
+          await client.query(QueryOptions(document: gql(YOUR_QUERY)));
+      setState(() {
+        users = result.data?['users'] ?? [];
+      });
+    } catch (e) {
+      // Manejar errores aquí
+      print('Error fetching data: $e');
+    } finally {
+      setState(() {
+        isLoading =
+            false; // Establece isLoading en false después de completar la consulta
+      });
+    }
+  }
+}

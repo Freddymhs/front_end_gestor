@@ -22,9 +22,10 @@ Gestor es un proyecto inicial (starter) desarrollado con Flutter para crear apli
 
 ### Ejecución del Proyecto
 
+0. **extras**
+   1. flutter pub cache repair
 1. **Instalar dependencias::**
    `flutter pub get`
-
 2. **Ejecutar en dispositivos:**
 
 ```
@@ -61,36 +62,13 @@ gestor
 
 
 ```
-  <!-- {
+
+<!-- {
       "name": "launch_chrome",
       "request": "launch",
       "type": "dart",
       "deviceId": "chrome",
       "program": "lib/main.dart",
-      "args": ["--web-hostname=localhost", "--web-port=3000"]
-      // "preLaunchTask": "clear chrome cache"
+      "args": ["--web-hostname=localhost", "--web-port=3000"],
+      "preLaunchTask": "clear chrome cache"
     } -->
-
-# in development
-
-- Autenticación
-   - [x] inicio y registro
-   - [x] cierre de sesión
-
-- Gestion de Usuarios
-   - [x] Asignar roles
-     - [ ] Admin
-     - [ ] trabajador
-     - [ ] cliente
-     - [ ] proveedor
-   - [ ] Permisos
-     - [ ] acciones que puede hacer dentro de la app
-   - [ ] desactivar cuenta 
-   
-
-
-
-
-
-
-

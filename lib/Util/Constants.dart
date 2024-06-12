@@ -6,10 +6,11 @@ const showOptions = "Mas opciones";
 const loginRoute = "/login";
 const settingsRoute = '/settings';
 const homeRoute = "/home";
+const companyRoute = "/company";
 
 const configurations = "Configuraciones";
 const signOut = 'Salir';
-
+const managementUsers = "Gestion de Usuarios";
 const goodByeMessage = 'Gestor App Multiplatform';
 const messageFooter = "© 2024 Mi Gestor";
 
@@ -21,3 +22,4 @@ const labelBox = "Caja";
 const systemTheme = "Tema del sistema";
 const systemLight = "Tema claro";
 const systemDark = "Tema oscuro";
+const panelManagementUsers = "Gestion de Usuarios";

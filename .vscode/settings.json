@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Multiplatform"]
+  "cSpell.words": ["Multiplatform"],
+  "cmake.ignoreCMakeListsMissing": true
 }
