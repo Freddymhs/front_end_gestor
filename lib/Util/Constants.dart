@@ -6,6 +6,7 @@ const showOptions = "Mas opciones";
 const loginRoute = "/login";
 const settingsRoute = '/settings';
 const homeRoute = "/home";
+const productsRoute = "/products";
 const companyRoute = "/company";
 
 const configurations = "Configuraciones";

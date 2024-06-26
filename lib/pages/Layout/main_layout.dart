@@ -6,6 +6,7 @@ import 'package:front_end_gestor/components/molecules/customFooter.dart';
 import 'package:front_end_gestor/components/molecules/customNavigationBar.dart';
 import 'package:front_end_gestor/main.dart';
 import 'package:front_end_gestor/pages/company_view.dart';
+import 'package:front_end_gestor/pages/products_view.dart';
 import 'package:provider/provider.dart';
 
 class BaseLayout extends StatefulWidget {
@@ -54,8 +55,16 @@ class _BaseLayoutState extends State<BaseLayout> {
                 );
               },
             ),
-            const ListTile(
-              title: const Text('Scanner || Venta'),
+            ListTile(
+              title: const Text("Productos/Inventario"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductsView(),
+                  ),
+                );
+              },
             ),
           ],
         ),

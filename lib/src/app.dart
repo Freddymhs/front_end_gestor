@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:front_end_gestor/pages/company_view.dart';
 import 'package:front_end_gestor/pages/home_view.dart';
 import 'package:front_end_gestor/pages/login_view.dart';
+import 'package:front_end_gestor/pages/products_view.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../components/atoms/sample_feature/sample_item_details_view.dart';
@@ -91,8 +92,8 @@ class MyApp extends StatelessWidget {
                       return const HomeView();
                     case CompanyView.routeName:
                       return CompanyView();
-                    // default:
-                    // return CompanyView();
+                    case ProductsView.routeName:
+                      return const ProductsView();
                     default:
                       return LoginView();
                   }
