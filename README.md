@@ -63,3 +63,15 @@ gestor
 
 ```
 
+# Barcode
+- Barcode scanner
+   - https://pub.dev/packages/mobile_scanner
+
+- Generator Barcode
+    - https://pub.dev/packages/barcode'
+    - https://pub.dev/packages/pretty_qr_code
+- Listener Barcode hardware
+    - https://pub.dev/packages/flutter_barcode_listener
+  
+- depende de kotlin
+    - https://pub.dev/packages/barcode_scan2
