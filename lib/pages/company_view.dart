@@ -380,9 +380,10 @@ class UserDataRow extends StatelessWidget {
             child: Text(userData['role']),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment:
+                  MainAxisAlignment.end, // Align buttons to the right
               children: [
                 IconButton(
                   icon: Icon(Icons.edit),
@@ -390,10 +391,8 @@ class UserDataRow extends StatelessWidget {
                 ),
                 IconButton(
                   icon: userData['enabled'] == true
-                      ? Icon(Icons.person,
-                          color: Colors.black) // Active user: Black icon
-                      : Icon(Icons.person_outline,
-                          color: Colors.grey[400]), // Disabled user: Gray icon
+                      ? Icon(Icons.person, color: Colors.black)
+                      : Icon(Icons.person_outline, color: Colors.grey[400]),
                   onPressed: onDelete,
                 ),
               ],
