@@ -436,7 +436,10 @@ class UserTableHeader extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: SizedBox(),
+            child: Text(
+              'Acciones',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
